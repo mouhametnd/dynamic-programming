@@ -1,4 +1,5 @@
 package main
+
 /*
 
 Problem:
@@ -20,30 +21,51 @@ Framework for Solving DP Problems:
 		bottom-up
 	5. Where to look for the answer?
 		f(n)
+
+
 */
 
 // time complexity: O(n)
 // space complexity: O(1)
 func clmbStairs(n int) int {
-	last := 1
-	prevLast := 1
+	a := 1
+	b := 1
+	c := 2
 	temp := 0
-	for i := 2; i <= n; i++ {
-		temp = last
-		last = last + prevLast
-		prevLast = temp
+	for i := 3; i <= n; i++ {
+		temp = a
+		a = a + b + c
+		b = temp
 	}
-	return last
+	return a
 }
 
-// time complexity: O(n) 
-// space complexity: O(n) 
+// time complexity: O(n)
+// space complexity: O(n)
 func clmbStairs2(n int) int {
 	dp := make([]int, n+1)
 	dp[0] = 1
 	dp[1] = 1
+	dp[2] = 2
+	for i := 3; i <= n; i++ {
+		dp[i] = dp[i-1] + dp[i-2] + dp[i-3]
+	}
+	return dp[n]
+}
+
+// time complexity: O(n*m)
+// time complexity: O(n)
+func clmbStairs3(n, k int) int {
+	dp := make([]int, n+1)
+	dp[0] = 1
+	dp[1] = 1
 	for i := 2; i <= n; i++ {
-		dp[i] = dp[i-1] + dp[i-2]
+		for j := 1; j <= k; j++ {
+			if i-j != 0 {
+				dp[i] += dp[j]
+			}
+		}
+
 	}
 	return dp[n]
 }
@@ -51,5 +73,7 @@ func clmbStairs2(n int) int {
 func main() {
 	println(clmbStairs(4))
 	println(clmbStairs(5))
-	println(clmbStairs2(6))
+	println(clmbStairs2(4))
+	println(clmbStairs3(4, 3))
+	println(clmbStairs3(4, 2))
 }

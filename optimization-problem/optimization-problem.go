@@ -56,11 +56,11 @@ func min(a, b int) int {
 	return b
 }
 
-func reverser(arr []int) []int{
+func reverser(arr []int) []int {
 	leftPointer := 0
-	rightPointer := len(arr) - 1;
-	for leftPointer < rightPointer{
-		arr[leftPointer], arr[rightPointer] =arr[rightPointer], arr[leftPointer]
+	rightPointer := len(arr) - 1
+	for leftPointer < rightPointer {
+		arr[leftPointer], arr[rightPointer] = arr[rightPointer], arr[leftPointer]
 		leftPointer++
 		rightPointer--
 	}
