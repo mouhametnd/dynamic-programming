@@ -178,7 +178,7 @@ func main() {
 		coinChange(0, 3)
 	}
 
-	// part 3:
+	// part 3: coin change with even number of coins
 	{
 		/*
 			 coin change:
@@ -188,7 +188,7 @@ func main() {
 				 denominations: 1,3,5,10
 
 				 1. Objective function: Given n return the number of ways to make a change of size n with the given denomination by using even number of coins.
-				 f(i,x) 
+				 f(i,x)
 				 f(i,x) -> {
 					x: 1 == even
 					x: 0 == odd
@@ -259,8 +259,67 @@ func main() {
 		// fmt.Println(coinChange(4))
 		// fmt.Println(coinChange(6))
 		// fmt.Println(coinChange(4))
-		fmt.Println(coinChange(7))
-		fmt.Println(coinChange(8))
-
+		coinChange(7)
+		// fmt.Println(coinChange(7))
+		// fmt.Println(coinChange(8))
 	}
+
+	// part 4: coin change with unique paths
+	{
+
+		/*
+			   Video: https://youtu.be/g0VjciqYeDU
+			   Problem:
+			   	Coin change
+			   	Given an unlimited supply of coins of given denominations,
+			   	find the unique number of ways to make a change of size n.
+			   	Denominations:
+			   	coins = [1, 2, 3, 5]
+
+					1. Objective function
+					f(i,t) is total number of ways to make change of size i, when the last coins is less or equal to t.
+
+					2. Base Cases
+						f(i>0, 0) = 0;
+						f(0,0)  = 1
+						f(i,1) = 1
+
+						f(i,2) =
+							f(1,2) = 1 (1)
+							f(2,2) = 2 (1,1) (2,1)
+							f(3,2) = 2 (1*3) (2,1)
+
+					3. Transition function
+					f(i,2) = f(i-2,2) + f(i-1,1)
+
+		*/
+
+		coinChange := func(n int) int {
+			dp := make([][]int, n+1)
+			coins := []int{1, 2, 3, 5}
+			for i := range dp {
+				dp[i] = make([]int, len(coins))
+			}
+			for i := range coins {
+				dp[0][i] = 1
+			}
+
+			for i := 1; i <= n; i++ {
+				for j := range coins {
+					for k := 0; k <= j; k++ {
+						if i-coins[k] >= 0 {
+							dp[i][j] += dp[i-coins[k]][k]
+						}
+					}
+				}
+			}
+			return dp[n][len(coins)-1]
+		}
+
+		// fmt.Println(coinChange(4))
+		// fmt.Println(coinChange(2))
+		// fmt.Println(coinChange(6))
+		fmt.Println(coinChange(75))
+	}
+
 }
