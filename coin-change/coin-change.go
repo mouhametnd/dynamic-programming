@@ -292,6 +292,7 @@ func main() {
 					3. Transition function
 					f(i,2) = f(i-2,2) + f(i-1,1)
 
+
 		*/
 
 		coinChange := func(n int) int {
@@ -305,7 +306,7 @@ func main() {
 			}
 
 			for i := 1; i <= n; i++ {
-				for j := range coins {
+				for j := range coins { // t
 					for k := 0; k <= j; k++ {
 						if i-coins[k] >= 0 {
 							dp[i][j] += dp[i-coins[k]][k]
