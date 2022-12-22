@@ -5,6 +5,7 @@ import (
 	"math"
 )
 
+
 /*
 
 Problem:
@@ -22,6 +23,10 @@ Problem:
 */
 
 func findShortestPath(graph [][]int) int {
+
+	// fmt.Println("test", 4)
+	
+
 	if len(graph) == 0 {
 		return 0
 	}
@@ -82,4 +87,11 @@ func main() {
 	graph[8][9] = 3
 
 	fmt.Println(findShortestPath(graph))
+
+	// arr := []int{1, 2, 3, 4, 5}
+	// arr[2] = arr[len(arr)-1] -> [1, 2, 5, 4, 5]
+	// arr[:len(arr)-1] -> [1, 2, 5, 4]
+	
 }
+
+
